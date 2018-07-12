@@ -64,7 +64,7 @@ export default {
 	height: 100%;
 }
 .indexPage{
-	width: 103%;
+	width: 100%;
 	height: 100%;
 }
 .slide-image{

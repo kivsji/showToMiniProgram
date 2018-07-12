@@ -2,32 +2,13 @@
     <div class="picPage">
         <div class="picTitle">
             <span class="pt1">{{typeName}}</span>
-            <span class="pt2" @click="typeMore()">更多</span>
+            <span class="pt2" @click="typeMore()">更多></span>
         </div>
         <scroll-view class="picSwipeList" :scroll-x='true'>
             <div class="picList">
-                <a class="picA" @click="inPicDetails()">
+                <a class="picA" @click="inPicDetails(index)" v-for="(item,index) in 6" :key='index'>
                     <img class="pic" src="../../static/img/pic1.jpg">
                 </a>
-                <a class="picA" @click="inPicDetails()">
-                    <img class="pic" src="../../static/img/pic1.jpg">
-                </a>
-                <a class="picA" @click="inPicDetails()">
-                    <img class="pic" src="../../static/img/pic1.jpg">
-                </a>
-                <a class="picA" @click="inPicDetails()">
-                    <img class="pic" src="../../static/img/pic1.jpg">
-                </a>
-                <a class="picA" @click="inPicDetails()">
-                    <img class="pic" src="../../static/img/pic1.jpg">
-                </a>
-                <a class="picA" @click="inPicDetails()">
-                    <img class="pic" src="../../static/img/pic1.jpg">
-                </a>
-                <a class="picA" @click="inPicDetails()">
-                    <img class="pic" src="../../static/img/pic1.jpg">
-                </a>
-
             </div>
         </scroll-view>
     </div>
@@ -45,8 +26,8 @@ methods:{
     typeMore(){
       console.log(1)
     },
-    inPicDetails(){
-      console.log('pic')
+    inPicDetails(index){
+      console.log('pic'+index)
     }
 }
 };
@@ -62,11 +43,10 @@ methods:{
 .picTitle{
     width: 100%;
     height: 70rpx;
-    border-bottom: 1rpx solid #eee;
+    /* border-bottom: 1rpx solid #eee; */
 }
 .pt1,.pt2{
     font-size: 30rpx;
-    padding: 0 30rpx;
     line-height: 70rpx;
 }
 .pt1{
