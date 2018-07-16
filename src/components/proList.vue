@@ -62,13 +62,13 @@
 <style>
 .proSearch{
     overflow: hidden;
-    height: 80px;
-    background: red;
+    height: 70px;
+    background: #FF7F7F;
 }
 .proSearchText{
     padding-left: 20rpx;
     color: #fff;
-    line-height: 100px;
+    line-height: 90px;
     font-size: 30rpx;
 }
 .prolist{

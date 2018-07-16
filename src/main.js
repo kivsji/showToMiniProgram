@@ -14,13 +14,13 @@ export default {
     pages: ['pages/logs/main', 'pages/index/main','^pages/products/main','pages/stores/main','pages/detail/main'],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#00aef3',
+      navigationBarBackgroundColor: '#FF7F7F',
       navigationStyle:'custom',
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: '#fff'
     },
     tabBar: {
-      selectedColor:'#FF0000',
+      selectedColor:'#FF7F7F',
       list: [
         {
           pagePath: "pages/index/main",
