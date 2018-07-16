@@ -1,48 +1,48 @@
 <template>
-  <div class="counter-warp">
-    <p>Vuex counter：{{ count }}</p>
-    <p>
-      <button @click="increment">+</button>
-      <button @click="decrement">-</button>
-    </p>
-    <a @click="toIndex()">toIndex</a>
-  </div>
+	<div class="counter-warp">
+		<p>Vuex counter：{{ count }}</p>
+		<p>
+			<button @click="increment">+</button>
+			<button @click="decrement">-</button>
+		</p>
+		<a @click="toIndex()">toIndex</a>
+	</div>
 </template>
 
 <script>
 // Use Vuex
-import store from './store'
+import store from "./store";
 
 export default {
-  computed: {
-    count () {
-      return store.state.count
-    }
-  },
-  methods: {
-    increment () {
-      store.commit('increment')
+    computed: {
+        count() {
+            return store.state.count;
+        }
     },
-    decrement () {
-      store.commit('decrement')
-    },
-    toIndex(){
-      wx.navigateBack()
+    methods: {
+        increment() {
+            store.commit("increment");
+        },
+        decrement() {
+            store.commit("decrement");
+        },
+        toIndex() {
+            wx.navigateBack();
+        }
     }
-  }
-}
+};
 </script>
 
 <style>
 .counter-warp {
-  text-align: center;
-  margin-top: 100px;
+    text-align: center;
+    margin-top: 100px;
 }
 .home {
-  display: inline-block;
-  margin: 100px auto;
-  padding: 5px 10px;
-  color: blue;
-  border: 1px solid blue;
+    display: inline-block;
+    margin: 100px auto;
+    padding: 5px 10px;
+    color: blue;
+    border: 1px solid blue;
 }
 </style>
