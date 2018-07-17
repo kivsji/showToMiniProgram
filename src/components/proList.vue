@@ -19,6 +19,7 @@
                 <img src="../../static/img/pic1.jpg" class="proImg">
                 <div class="proText">
                     <p class="proTitle">这是第{{index}}件衣服</p>
+                    <p class="proYan">建议零售价(¥)：<span class="proYanC">88</span></p>
                 </div>
             </div>
         </scroll-view>
@@ -99,26 +100,39 @@
 }
 .proItem{
     width: 100%;
-    height: 200rpx;
+    height: 300rpx;
 }
 .proItem:first-child{
-    margin-top: 10rpx;
+    /* margin-top: 10rpx; */
 }
 .proItem+.proItem{
-    border-top: 1rpx solid #ddd;
-    margin-top: 10rpx;
-    padding-top: 10rpx;
+    /* border-top: 1rpx solid #ddd; */
+    /* margin-top: 10rpx; */
+    /* padding-top: 10rpx; */
 }
 .proImg{
     width: 200rpx;
     height: 200rpx;
+    margin-left: 25rpx;
+    margin-top: 50rpx;
     float: left;
 }
 .proText{
-    float: left;
+    border-bottom: 1rpx solid #ddd;
+    width: calc(100% - 225rpx);
+    height: 300rpx;
+    float: right;
 }
 .proTitle{
-    padding: 10rpx 30rpx;
+    padding: 70rpx 30rpx 0;
+    font-size: 30rpx;
+}
+.proYan{
+    font-size: 25rpx;
+    color: #aaa;
+    padding: 45rpx 30rpx 0;
+}
+.proYanC{
     font-size: 30rpx;
 }
 </style>
