@@ -3,6 +3,9 @@
         <div class="proSearch">
             <p class="proSearchText">请搜索。。</p>
         </div>
+        <div class="proTypeList">
+            <img src="../../../static/img/test.jpg" width="100%" height="100rpx">
+        </div>
     </div>
 </template>
 

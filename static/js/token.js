@@ -4,6 +4,7 @@
 
 import { Config } from './config.js';
 
+
 var app = null;
 
 class Token {
@@ -27,7 +28,7 @@ class Token {
             header: { 'token': token },
             success: function (res) {
                 var valid = res.data.isValid;
-                app.globalData.isValid = valid;
+                wx.setStorageSync('isValid',valid);
             }
         })
     }
@@ -35,7 +36,7 @@ class Token {
     getTokenFromServer(callBack) {
         var that  = this;
         var token = wx.getStorageSync('token')
-        if (app.globalData.isValid) {
+        if (wx.getStorageSync('isValid')) {
           callBack && callBack(token);
           return
         }
@@ -49,7 +50,7 @@ class Token {
               },
               success: function (res) {
                 wx.setStorageSync('token', res.data.token);
-                app.globalData.isValid = true;                
+                wx.setStorageSync('isValid',true)       
                 callBack && callBack(res.data.token);
               }
             })
