@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App'
-
+// import {post} from '../static/js/requestMethod.js' 
+// Vue.prototype.$post = post
 Vue.config.productionTip = false
 App.mpType = 'app'
 
@@ -29,7 +30,7 @@ export default {
           selectedIconPath: "static/img/_index.png"
         },
         {
-          pagePath: "pages/products/main",
+          pagePath: "pages/productsType/main",
           text: "分类",
           iconPath: "static/img/products.png",
           selectedIconPath: "static/img/_products.png"

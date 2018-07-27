@@ -57,13 +57,13 @@ export default {
         //获取基础资料
         getUserBaseData(){
             //获取基础资料
-            wx.request({
-                url: "https://www.rdoorweb.com/api/ext_json/",
-                header: { token: wx.getStorageSync('token') },
-                success: res => {
-                    console.log(2222);
-                }
-            });
+            // wx.request({
+            //     url: "https://www.rdoorweb.com/api/ext_json/",
+            //     header: { token: wx.getStorageSync('token') },
+            //     success: res => {
+            //         console.log(2222);
+            //     }
+            // });
         },
         //获取分类
         getProductTypes(){
@@ -72,9 +72,9 @@ export default {
                 header: { token: wx.getStorageSync('token') },
                 success:res=>{
                     wx.setStorageSync('productType',res.data.data)
-                    console.log(wx.getStorageSync('productType'));
                 }
             })
+            console.log(1);
         },
         //获取token后回调
         afterGetTokenCallback(){
@@ -82,9 +82,12 @@ export default {
         }
 	},
 	onLoad(){
-		var token = new Token()
-        token.getTokenFromServer(this.afterGetTokenCallback())
-        console.log();
+        var token = new Token();
+        // token.verify()
+        token.getTokenFromServer(this.getProductTypes())
+        // var indexTime = setTimeout(()=>{
+        //     this.afterGetTokenCallback()
+        // },100)
     }
     
 };

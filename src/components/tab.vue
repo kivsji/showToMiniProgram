@@ -7,9 +7,10 @@
     <swiper :current="currentTab" class="detailAll" :style="'height:'+swipeH+'px'" duration="100" @change="swiperTab">
       <swiper-item>
         <view class="detailContent">
-          <img src="../../static/img/detail2.jpg">
+          <!-- <img src="../../static/img/detail2.jpg">
           <br>
-          <img src="../../static/img/detail1.jpg">
+          <img src="../../static/img/detail1.jpg"> -->
+          {{proDetail.content}}
         </view>
       </swiper-item>
       <swiper-item>
@@ -21,11 +22,12 @@
 
 <script>
 export default {
-  props: [],
+  props: ['detail'],
   data() {
     return {
       currentTab: 0,
-      swipeH: ""
+      swipeH: "",
+      proDetail:''
     };
   },
   methods: {
@@ -60,6 +62,8 @@ export default {
   },
   onReady() {
     this.setSwipeH();
+    this.proDetail = detail;
+    
   }
 };
 </script>

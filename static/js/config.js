@@ -6,10 +6,12 @@ class Config{
 }
 let ext = require('../../ext.json')
 
-let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
+let extConfig = wx.getExtConfigSync? wx.getExtConfigSync(): {}
+wx.setStorageSync('XCXFLAG',ext.ext.xcx_flag)
+console.log(extConfig);
 
-// Config.restUrl = 'https://www.rdoorweb.com/app/' + 'sdq12DSs' + '/api' ;
-Config.restUrl = 'https://www.rdoorweb.com/app/' + ext.ext.xcx_flag + '/api' ;
+Config.restUrl = 'https://www.rdoorweb.com/app/' + extConfig.xcx_flag + '/api' ;
+// Config.restUrl = 'https://www.rdoorweb.com/app/' + ext.ext.xcx_flag + '/api' ;
 // Config.restUrl = 'http://localhost/jiimoo/public/app/' + extConfig.xcx_flag +'/api';
 
 

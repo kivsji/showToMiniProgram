@@ -1,7 +1,7 @@
 <template>
     <div class="prolist">
         <div class="proSearch">
-            <p class="proSearchText">请搜索。。</p>
+            <p class="proSearchText" @click="intoProList()">请搜索。。</p>
         </div>
         <div class="proFilter">
             <span class="pFItem">
@@ -15,11 +15,11 @@
             </span>
         </div>
         <scroll-view class="proData" :scroll-y='true' :style="'height:'+scrollHeight">
-            <div class="proItem" v-for="(item,index) in 8" :key="index" @click="intoProDetial(index)">
-                <img src="../../static/img/pic1.jpg" class="proImg">
+            <div class="proItem" v-for="(item,index) in proList" :key="index" @click="intoProDetial(item.id)">
+                <img :src="item.thumb" class="proImg">
                 <div class="proText">
-                    <p class="proTitle">这是第{{index}}件衣服</p>
-                    <p class="proYan">建议零售价(¥)：<span class="proYanC">88</span></p>
+                    <p class="proTitle">{{item.name}}</p>
+                    <p class="proYan">建议零售价(¥)：<span class="proYanC">{{item.c_price}}</span></p>
                 </div>
             </div>
         </scroll-view>
@@ -31,7 +31,9 @@
         data(){
             return{
                 scrollHeight:'',
-                url:'../detail/main?id='
+                url:'../detail/main?id=',
+                proList:[],
+                proTypeId:''
             }
         },
         methods:{
@@ -39,7 +41,23 @@
             intoProDetial(id){
                 var url = this.url + id
                 wx.navigateTo({ url })
-            }
+            },
+            //返回上一级
+            intoProList() {
+                wx.navigateBack({
+                    delta: 1
+                });
+            },
+        },
+        onLoad(opt){
+            this.proTypeId = opt.id
+            wx.request({
+                url:'https://www.rdoorweb.com/app/'+ wx.getStorageSync('XCXFLAG') +'/api/products?keyword=&cate_id=' + this.proTypeId,
+                header: { token: wx.getStorageSync('token') },
+                success: res=>{
+                    this.proList = res.data.data.data
+                }
+            })
         },
         onReady(){
             let self = this
@@ -54,8 +72,6 @@
                     self.scrollHeight = res.windowHeight
                 }
             })
-
-            
         }
     }
 </script>

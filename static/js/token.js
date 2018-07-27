@@ -3,7 +3,7 @@
 // 私有函数以_开头
 
 import { Config } from './config.js';
-
+// import { requestMethod } from './requestMethod.js';
 
 var app = null;
 
@@ -14,12 +14,14 @@ class Token {
         this.tokenUrl = Config.restUrl + '/wechat/token/getToken';
     }
 
-    verify(that) {
-        app = that;
+    verify() {
+        var app = that;
         this._veirfyFromServer();
+        // requestMethod.get('wechat/token/verifyToken')
+        // fn()
     }
 
-    _veirfyFromServer(token) {
+    _veirfyFromServer(callBack) {
         var that = this;
         var token = wx.getStorageSync('token');
         wx.request({
@@ -29,6 +31,7 @@ class Token {
             success: function (res) {
                 var valid = res.data.isValid;
                 wx.setStorageSync('isValid',valid);
+                that.getTokenFromServer(callBack)
             }
         })
     }
@@ -36,10 +39,12 @@ class Token {
     getTokenFromServer(callBack) {
         var that  = this;
         var token = wx.getStorageSync('token')
+        
         if (wx.getStorageSync('isValid')) {
-          callBack && callBack(token);
+          callBack && callBack();
           return
         }
+        
         wx.login({
           success: function (res) {
             wx.request({
@@ -50,8 +55,10 @@ class Token {
               },
               success: function (res) {
                 wx.setStorageSync('token', res.data.token);
-                wx.setStorageSync('isValid',true)       
-                callBack && callBack(res.data.token);
+                wx.setStorageSync('isValid',true)
+                console.log(22);
+                var token = wx.getStorageSync('token')
+                callBack && callBack(token);
               }
             })
           }
