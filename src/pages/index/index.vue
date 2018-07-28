@@ -8,10 +8,7 @@
 					</swiper-item>
 				</block>
 			</swiper>
-			<picSwipe :typeName='typeName'></picSwipe>
-			<picSwipe :typeName='typeName'></picSwipe>
-			<picSwipe :typeName='typeName'></picSwipe>
-			<picSwipe :typeName='typeName'></picSwipe>
+			<picSwipe :type='item' v-for="(item,index) in proType" :key='index'></picSwipe>
 		</scroll-view>
 	</div>
 
@@ -39,7 +36,8 @@ export default {
                 duration: 1000,
                 circular: true
             },
-            typeName: "这是分类"
+            typeName: "这是分类",
+            proType:''
         };
     },
 
@@ -72,24 +70,22 @@ export default {
                 header: { token: wx.getStorageSync('token') },
                 success:res=>{
                     wx.setStorageSync('productType',res.data.data)
+                    this.proType = res.data.data
                 }
             })
-            console.log(1);
         },
         //获取token后回调
         afterGetTokenCallback(){
             this.getProductTypes()
-        }
+        },
 	},
 	onLoad(){
+        var callback = ()=>{
+                this.afterGetTokenCallback()
+            }
         var token = new Token();
-        // token.verify()
-        token.getTokenFromServer(this.getProductTypes())
-        // var indexTime = setTimeout(()=>{
-        //     this.afterGetTokenCallback()
-        // },100)
+        token.getTokenFromServer(callback)
     }
-    
 };
 </script>
 

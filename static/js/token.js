@@ -14,11 +14,9 @@ class Token {
         this.tokenUrl = Config.restUrl + '/wechat/token/getToken';
     }
 
-    verify() {
+    verify(that) {
         var app = that;
         this._veirfyFromServer();
-        // requestMethod.get('wechat/token/verifyToken')
-        // fn()
     }
 
     _veirfyFromServer(callBack) {
@@ -38,8 +36,6 @@ class Token {
 
     getTokenFromServer(callBack) {
         var that  = this;
-        var token = wx.getStorageSync('token')
-        
         if (wx.getStorageSync('isValid')) {
           callBack && callBack();
           return
@@ -56,9 +52,8 @@ class Token {
               success: function (res) {
                 wx.setStorageSync('token', res.data.token);
                 wx.setStorageSync('isValid',true)
-                console.log(22);
-                var token = wx.getStorageSync('token')
-                callBack && callBack(token);
+                // var token = wx.getStorageSync('token')
+                callBack && callBack();
               }
             })
           }

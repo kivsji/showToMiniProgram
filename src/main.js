@@ -4,7 +4,7 @@ import App from './App'
 // Vue.prototype.$post = post
 Vue.config.productionTip = false
 App.mpType = 'app'
-
+require('es6-promise').polyfill()
 const app = new Vue(App)
 app.$mount()
 

@@ -16,14 +16,14 @@
                     </block>
                 </swiper>
                 <!-- <p class="detailTitle">2018年夏季新款 绣花亚麻外披 订单款</p> -->
-                <p class="detailTitle">2018年夏季新款 绣花亚麻外披 订单款</p>
+                <p class="detailTitle">{{proDetail.name}}</p>
                 <p class="detailTip">
-                    <span class="tipText">销量： 213 件</span>
-                    <span class="tipText">剩余： 999 件</span>
+                    <!-- <span class="tipText">销量： {{213}} 件</span> -->
+                    <span class="tipText">剩余： {{proDetail.stock}} 件</span>
                 </p>
             </div>
             <div class="detailBottom">
-                <tab :data-detail='proDetail'></tab>
+                <tab :detail='proDetail'></tab>
             </div>
         </div>
     </div>
@@ -76,13 +76,13 @@ export default {
     },
     onLoad(options) {
         this.id = options.id;
+        let that = this
         wx.request({
             url:'https://www.rdoorweb.com/app/'+ wx.getStorageSync('XCXFLAG') +'/api/products/' + this.id,
             header: { token: wx.getStorageSync('token') },
             success: res=>{
                 this.proDetail = res.data.data
-                console.log(this.proDetail);
-                
+                this.swipeData.imgUrls = this.proDetail.banner
             }
         })
     }
