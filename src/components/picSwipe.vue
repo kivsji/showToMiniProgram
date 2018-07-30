@@ -2,7 +2,7 @@
     <div class="picPage">
         <div class="picTitle">
             <span class="pt1">{{type.name}}</span>
-            <span class="pt2" @click="typeMore()">更多></span>
+            <span class="pt2" @click="typeMore(type.id)">更多></span>
         </div>
         <scroll-view class="picSwipeList" :scroll-x='true'>
             <div class="picList">
@@ -27,11 +27,13 @@ export default {
             typeAll:'',
             proList:[],
             detailUrl:'../detail/main?id=',
+            proListUrl:'../products/main?id='
         }
     },
     methods: {
-        typeMore() {
-            console.log(1);
+        typeMore(id) {
+            var url = this.proListUrl + id
+            wx.navigateTo({ url })
         },
         inPicDetails(id) {
             var url = this.detailUrl + id

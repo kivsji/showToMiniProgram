@@ -1,7 +1,8 @@
 <template>
     <div class="prolist">
         <div class="proSearch">
-            <p class="proSearchText" @click="intoProList()">请搜索。。</p>
+            <span class="proSearchReturn" @click="intoProList()"></span>
+            <span class="proSearchTextOut" @click="showSearch()">{{searchText}}</span>
         </div>
         <div class="proFilter">
             <span class="pFItem">
@@ -14,7 +15,7 @@
                 型号
             </span>
         </div>
-        <scroll-view class="proData" :scroll-y='true' :style="'height:'+scrollHeight">
+        <scroll-view class="proData" :scroll-y='true' :style="'height:'+scrollHeight" v-if='proList.length>0'>
             <div class="proItem" v-for="(item,index) in proList" :key="index" @click="intoProDetial(item.id)">
                 <img :src="item.thumb" class="proImg">
                 <div class="proText">
@@ -23,31 +24,46 @@
                 </div>
             </div>
         </scroll-view>
+        <p v-else class="proItemNull">暂无商品</p>
+        <searchPage ref='search' :proId='proTypeId' v-on:listenToChildEvent='showMsgFromChild'></searchPage>
     </div>
 </template>
 
 <script>
+import searchPage from "@/components/searchPage";
     export default {
         data(){
             return{
                 scrollHeight:'',
                 url:'../detail/main?id=',
                 proList:[],
-                proTypeId:''
+                proTypeId:'',
+                searchText:'搜索...'
             }
         },
+        components:{searchPage},
         methods:{
             //进入产品详情页
             intoProDetial(id){
+                this.searchText = '搜索...'
                 var url = this.url + id
                 wx.navigateTo({ url })
             },
             //返回上一级
             intoProList() {
+                this.searchText = '搜索...'
                 wx.navigateBack({
                     delta: 1
                 });
             },
+            //显示search
+            showSearch(){
+                this.$refs.search.hiddenSearch()
+            },
+            showMsgFromChild:function (data) {
+                this.proList = data.data
+                this.searchText = data.searchText
+            }
         },
         onLoad(opt){
             this.proTypeId = opt.id
@@ -82,10 +98,25 @@
     height: 70px;
     background: #FF7F7F;
 }
-.proSearchText{
-    padding-left: 20rpx;
+.proSearchReturn{
+    background: url(../../static/img/return.png) no-repeat 10px center;
+    height: 90px;
+    width: 50px;
+    background-size: 30px 30px;
+    float: left;
+}
+.proSearchTextOut{
+    float: left;
+    padding-left: 80rpx;
+    padding-right: 80rpx;
+    background: url(../../static/img/search1.png) no-repeat 30rpx center;
+    background-size:  30rpx;
     color: #fff;
-    line-height: 90px;
+    height: 55rpx;
+    border: 1px solid #fff;
+    border-radius: 20rpx;
+    margin-top: 60rpx;
+    line-height: 55rpx;
     font-size: 30rpx;
 }
 .prolist{
@@ -113,6 +144,14 @@
 .proData{
     width: 100%;
     overflow: hidden;
+}
+.proItemNull{
+    font-size: 35rpx;
+    line-height: 50rpx;
+    height: 50rpx;
+    color: #aaa;
+    text-align: center;
+    margin-top: 100rpx;
 }
 .proItem{
     width: 100%;
