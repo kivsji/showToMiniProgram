@@ -45,14 +45,10 @@ export default {
     },
     onReady(){
         this.typeAll = this.type
-        wx.request({
-            url:'https://www.rdoorweb.com/app/'+ wx.getStorageSync('XCXFLAG') +'/api/products?keyword=&cate_id=' + this.type.id,
-            header: { token: wx.getStorageSync('token') },
-            success:res=>{
-                this.proList = res.data.data.data
-                console.log(res.data.data.data);
-                
-            }
+        this.$http.get('products?keyword=&cate_id=' + this.type.id).then(res=>{
+            this.proList = res.data.data.data
+        }).catch(err=>{
+            console.log(err);
         })
     }
 };

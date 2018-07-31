@@ -1,15 +1,8 @@
 <script>
-import { Config } from "../static/js/config.js";
-import { Token } from "../static/js/token.js";
+var Fly=require("flyio/dist/npm/wx") 
+var fly=new Fly
 export default {
     created() {
-        //调用API从本地缓存中获取数据
-
-        console.log(1233);
-        var token = new Token();
-        
-        token.verify(this);
-		// token.getTokenFromServer()
     }
 };
 </script>

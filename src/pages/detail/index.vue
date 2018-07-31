@@ -1,9 +1,7 @@
 <template>
     <div class="proDetailPage" :style="'height:'+pageHeight">
         <div class="pageNav">
-            <span class="return" @click="intoProList()">
-                商品详情
-            </span>
+            <span class="return" @click="intoProList()"></span>
         </div>
         <div class="detailPage">
             <div class="detailTop">
@@ -77,13 +75,11 @@ export default {
     onLoad(options) {
         this.id = options.id;
         let that = this
-        wx.request({
-            url:'https://www.rdoorweb.com/app/'+ wx.getStorageSync('XCXFLAG') +'/api/products/' + this.id,
-            header: { token: wx.getStorageSync('token') },
-            success: res=>{
-                this.proDetail = res.data.data
-                this.swipeData.imgUrls = this.proDetail.banner
-            }
+        this.$http.get('products/' + this.id).then(res=>{
+            that.proDetail = res.data.data
+            that.swipeData.imgUrls = this.proDetail.banner
+        }).catch(err=>{
+            console.log(err);
         })
     }
 };
@@ -106,12 +102,13 @@ export default {
 .return {
     z-index: 999;
     display: block;
-    width: 100%;
-    height: 80px;
-    text-align: center;
-    line-height: 80px;
+    width: 40rpx;
+    font-size: 32rpx;
+    height: 90px;
+    line-height: 90px;
     color: #fff;
-    background: url(../../../static/img/return.png) no-repeat 10px center;
+    margin-left: 30rpx;
+    background: url(../../../static/img/return.png) no-repeat center;
     background-size: 30px 30px;
 }
 

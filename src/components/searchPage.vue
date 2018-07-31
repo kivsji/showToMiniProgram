@@ -1,9 +1,12 @@
 <template>
     <div class="searchPage" v-if="searchShow">
-        <div class="proSearch">
+        <!-- <div class="proSearch">
             <span class="proSearchReturn" @click="hiddenSearch()"></span>
             <span class="proSearchText">返回</span>
-        </div>
+        </div> -->
+        <div class="pageNav">
+                <span class="return" @click="hiddenSearch()"></span>
+            </div>
         <div class="searchContent">
             <div class="inputPage">
                 <input class="searchInput" v-model="searchText">
@@ -42,14 +45,12 @@
             },
             searchPro(){
                 var that = this
-                wx.request({
-                    url:'https://www.rdoorweb.com/app/'+ wx.getStorageSync('XCXFLAG') +'/api/products?keyword='+ that.searchText +'&cate_id='+that.proId,
-                    header: { token: wx.getStorageSync('token') },
-                    success: res=>{
-                        that.proList = res.data.data.data
-                        that.sendToParent(res.data.data.data)
-                        this.hiddenSearch()
-                    }
+                this.$http.get('products?keyword='+ that.searchText +'&cate_id='+that.proId).then(res=>{
+                    that.proList = res.data.data.data
+                    that.sendToParent(res.data.data.data)
+                    that.hiddenSearch()
+                }).catch(err=>{
+                    console.log(err);
                 })
             },
             sendToParent(data){
@@ -65,31 +66,30 @@
 </script>
 
 <style>
+.pageNav {
+    width: 100%;
+    height: 70px;
+    overflow: hidden;
+    background: rgb(255, 127, 127);
+}
+.return {
+    z-index: 999;
+    display: block;
+    width: 40rpx;
+    font-size: 32rpx;
+    height: 90px;
+    line-height: 90px;
+    color: #fff;
+    margin-left: 30rpx;
+    background: url(../../static/img/return.png) no-repeat center;
+    background-size: 30px 30px;
+}
 .searchPage{
     top: 0;
     width: 100%;
     height: 100%;
     position: fixed;
     background: #fff;
-}
-.proSearch{
-    overflow: hidden;
-    height: 140rpx;
-    background: #FF7F7F;
-}
-.proSearchReturn{
-    background: url(../../static/img/return.png) no-repeat 10px center;
-    height: 90px;
-    width: 50px;
-    background-size: 30px 30px;
-    float: left;
-}
-.proSearchText{
-    float: left;
-    padding-left: 20rpx;
-    color: #fff;
-    line-height: 90px;
-    font-size: 35rpx;
 }
 .searchContent{
     width: 100%;

@@ -67,12 +67,8 @@ import searchPage from "@/components/searchPage";
         },
         onLoad(opt){
             this.proTypeId = opt.id
-            wx.request({
-                url:'https://www.rdoorweb.com/app/'+ wx.getStorageSync('XCXFLAG') +'/api/products?keyword=&cate_id=' + this.proTypeId,
-                header: { token: wx.getStorageSync('token') },
-                success: res=>{
-                    this.proList = res.data.data.data
-                }
+            this.$http.get('products?keyword=&cate_id=' + this.proTypeId).then(res=>{
+                this.proList = res.data.data.data
             })
         },
         onReady(){
@@ -99,9 +95,10 @@ import searchPage from "@/components/searchPage";
     background: #FF7F7F;
 }
 .proSearchReturn{
-    background: url(../../static/img/return.png) no-repeat 10px center;
+    background: url(../../static/img/return.png) no-repeat center;
     height: 90px;
-    width: 50px;
+    width: 40rpx;
+    margin: 0 30rpx 0;
     background-size: 30px 30px;
     float: left;
 }

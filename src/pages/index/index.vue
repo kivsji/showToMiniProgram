@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import card from "@/components/card";
 import picSwipe from "@/components/picSwipe";
 import { Config } from '../../../static/js/config.js';
 import { Token } from "../../../static/js/token.js";
@@ -46,33 +45,20 @@ export default {
     },
 
     methods: {
-        logOne() {
-            console.log(123);
-        },
         getW() {
             this.swipeData.picWidth = wx.getSystemInfoSync().windowWidth;
         },
-        //获取基础资料
-        getUserBaseData(){
-            //获取基础资料
-            // wx.request({
-            //     url: "https://www.rdoorweb.com/api/ext_json/",
-            //     header: { token: wx.getStorageSync('token') },
-            //     success: res => {
-            //         console.log(2222);
-            //     }
-            // });
-        },
         //获取分类
         getProductTypes(){
-            wx.request({
-                url:'https://www.rdoorweb.com/app/2zRbKR0s/api/product_cates',
-                header: { token: wx.getStorageSync('token') },
-                success:res=>{
-                    wx.setStorageSync('productType',res.data.data)
-                    this.proType = res.data.data
-                }
+            var that = this
+            this.$http.get('product_cates')
+            .then(function (res) {
+                wx.setStorageSync('productType',res.data.data)
+                that.proType = res.data.data
             })
+            .catch(function (error) {
+                console.log(error);
+            });
         },
         //获取token后回调
         afterGetTokenCallback(){
@@ -80,11 +66,7 @@ export default {
         },
 	},
 	onLoad(){
-        var callback = ()=>{
-                this.afterGetTokenCallback()
-            }
-        var token = new Token();
-        token.getTokenFromServer(callback)
+        this.afterGetTokenCallback()
     }
 };
 </script>

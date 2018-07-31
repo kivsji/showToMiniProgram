@@ -8,7 +8,7 @@ import { Config } from './config.js';
 var app = null;
 
 class Token {
-   
+
     constructor() {
         this.verifyUrl = Config.restUrl + '/wechat/token/verifyToken';
         this.tokenUrl = Config.restUrl + '/wechat/token/getToken';
@@ -28,38 +28,38 @@ class Token {
             header: { 'token': token },
             success: function (res) {
                 var valid = res.data.isValid;
-                wx.setStorageSync('isValid',valid);
+                wx.setStorageSync('isValid', valid);
                 that.getTokenFromServer(callBack)
             }
         })
     }
 
     getTokenFromServer(callBack) {
-        var that  = this;
+        var that = this;
         if (wx.getStorageSync('isValid')) {
-          callBack && callBack();
-          return
+            callBack && callBack();
+            return
         }
-        
+
         wx.login({
-          success: function (res) {
-            wx.request({
-              url: that.tokenUrl,
-              method: 'POST',
-              data: {
-                code: res.code
-              },
-              success: function (res) {
-                wx.setStorageSync('token', res.data.token);
-                wx.setStorageSync('isValid',true)
-                // var token = wx.getStorageSync('token')
-                callBack && callBack();
-              }
-            })
-          }
+            success: function (res) {
+                wx.request({
+                    url: that.tokenUrl,
+                    method: 'POST',
+                    data: {
+                        code: res.code
+                    },
+                    success: function (res) {
+                        wx.setStorageSync('token', res.data.token);
+                        wx.setStorageSync('isValid', true)
+                        // var token = wx.getStorageSync('token')
+                        callBack && callBack();
+                    }
+                })
+            }
         })
     }
 
 }
 
-export {Token};
+export { Token };
