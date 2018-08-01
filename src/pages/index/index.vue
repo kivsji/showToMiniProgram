@@ -57,7 +57,9 @@ export default {
                 that.proType = res.data.data
             })
             .catch(function (error) {
-                console.log(error);
+                var timeOut = setTimeout(()=>{
+                    that.getProductTypes()
+                },500)
             });
         },
         //获取token后回调

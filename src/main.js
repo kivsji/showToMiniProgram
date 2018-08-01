@@ -11,7 +11,7 @@ var fly = new Fly
 var token = wx.getStorageSync('token')
 fly.interceptors.request.use((request) => {
 	request.headers["token"] = token
-	request.url = 'https://www.rdoorweb.com/app/'+ wx.getStorageSync('XCXFLAG') +'/api/' + request.url
+	request.baseURL = 'https://www.rdoorweb.com/app/'+ wx.getStorageSync('XCXFLAG') +'/api/'
 	return request
 })
 fly.interceptors.response.use((response) => {
@@ -20,12 +20,13 @@ fly.interceptors.response.use((response) => {
 	if (error.status === 401) {
 		wx.login({
 			success: async (res) => {
-				let data = await fly.post('https://www.rdoorweb.com/app/2zRbKR0s/api/wechat/token/getToken', res)
+				let data = await fly.post('wechat/token/getToken', res)
 				// 重新返回数据
-				wx.setStorageSync('token', data.token);
+				wx.setStorageSync('token', data.data.token);
 				token = wx.getStorageSync('token')
 				error.request.headers["token"] = token
-				return await fly.request(error.request)
+				// return 
+				return error
 			}
 		})
 	} else {
