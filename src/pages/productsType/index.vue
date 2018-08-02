@@ -1,7 +1,7 @@
 <template>
     <div class="prolist">
         <div class="proSearch">
-            <span class="proSearchText">搜索</span>
+            <span class="proSearchText">分类</span>
         </div>
         <scroll-view class="proTypeList" :scroll-y='true' :style="'height:'+scrollHeight">
             <div class="typeListItemP">
@@ -66,11 +66,13 @@
     float: left;
 }
 .proSearchText{
-    float: left;
+    margin: 0 auto;
     padding-left: 20rpx;
     color: #fff;
     line-height: 90px;
     font-size: 30rpx;
+    display: block;
+    width:100rpx;
 }
 .prolist{
     width: 100%;

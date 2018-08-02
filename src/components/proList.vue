@@ -4,8 +4,8 @@
             <span class="proSearchReturn" @click="intoProList()"></span>
             <span class="proSearchTextOut" @click="showSearch()">{{searchText}}</span>
         </div>
-        <div class="proFilter">
-            <span class="pFItem">
+        <!-- <div class="proFilter">
+            <span class="pFItem" @click="soltTime()">
                 时间
             </span>
             <span class="pFItem">
@@ -14,7 +14,7 @@
             <span class="pFItem">
                 型号
             </span>
-        </div>
+        </div> -->
         <scroll-view class="proData" :scroll-y='true' :style="'height:'+scrollHeight" v-if='proList.length>0'>
             <div class="proItem" v-for="(item,index) in proList" :key="index" @click="intoProDetial(item.id)">
                 <img :src="item.thumb" class="proImg">
@@ -63,6 +63,12 @@ import searchPage from "@/components/searchPage";
             showMsgFromChild:function (data) {
                 this.proList = data.data
                 this.searchText = data.searchText
+            },
+            //时间排序
+            soltTime(){
+                this.$http.get('products?keyword=&cate_id=' + this.proTypeId+'&sort=created_at&order=desc').then(res=>{
+                    this.proList = res.data.data.data
+                })
             }
         },
         onLoad(opt){
